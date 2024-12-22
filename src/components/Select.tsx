@@ -38,7 +38,7 @@ export default function Select({ label, value, setValue }: SelectProps) {
       );
     } else if (event.key === "Enter" && focusIndex !== null) {
       event.preventDefault();
-      handleOptionSelect(categories[focusIndex].name);
+      handleOptionSelect(categories[focusIndex].id);
     } else if (event.key === "Escape") {
       closeDropdown();
     }
