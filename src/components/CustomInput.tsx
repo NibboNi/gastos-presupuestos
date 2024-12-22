@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { DraftExpense } from "../types";
 
 type CustomInputProps = {
@@ -17,8 +18,19 @@ export default function CustomInput({
   placeholder = "",
   setValue,
 }: CustomInputProps) {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, valueAsNumber } = event.target;
+
+    if (type === "number") {
+      if (valueAsNumber <= 0)
+        setErrorMessage("La cantidad debe ser mayor a cero.");
+      else setErrorMessage("");
+    } else {
+      if (value === "") setErrorMessage("Este campo es requerido.");
+      else setErrorMessage("");
+    }
 
     setValue((prev) => ({
       ...prev,
@@ -40,6 +52,13 @@ export default function CustomInput({
         placeholder={placeholder}
         className="py-1 px-2 bg-inherit border border-zinc-200 rounded-lg transition-colors duration-300 ease-in-out placeholder:text-sm placeholder:font-medium placeholder:opacity-50 focus:outline-none focus:border-black/65  dark:border-zinc-800 dark:focus:border-zinc-500"
       />
+      <p
+        className={`text-red-500 text-xs font-bold overflow-hidden transition-all duration-500 ease-in-out ${
+          errorMessage !== "" ? "max-h-screen" : "max-h-0"
+        }`}
+      >
+        {errorMessage}
+      </p>
     </div>
   );
 }
