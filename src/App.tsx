@@ -20,7 +20,7 @@ export default function App() {
       </header>
       <main>{isValidBudget ? <BudgetTracker /> : <BudgetForm />}</main>
       {isValidBudget && (
-        <div className="mx-auto p-5 max-w-7xl flex flex-col items-start gap-5">
+        <div className="mx-auto p-5 max-w-xl flex flex-col items-start gap-5">
           <ExpenseModal />
           <ExpenseList />
         </div>

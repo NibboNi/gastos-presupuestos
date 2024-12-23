@@ -13,9 +13,9 @@ export default function ExpenseList() {
           <header className="mb-5 pb-2.5 border-b border-zinc-200 transition-colors duration-300 ease-in-out dark:border-b-zinc-800">
             <h2 className="text-2xl font-extralight uppercase ">Mis gastos</h2>
           </header>
-          <ul>
+          <ul className="w-full">
             {state.expenses.map((expense) => (
-              <li key={expense.id} className="pb-2.5 last-of-type:pb-0">
+              <li key={expense.id} className="pb-2.5 w-full last-of-type:pb-0">
                 <ExpenseDetail key={expense.id} expense={expense} />
               </li>
             ))}

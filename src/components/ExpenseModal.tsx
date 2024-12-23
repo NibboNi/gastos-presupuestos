@@ -17,7 +17,7 @@ export default function ExpenseModal() {
       {state.modal && (
         <div
           onClick={() => dispatch({ type: "hide-modal" })}
-          className="p-5 h-screen w-screen absolute top-0 left-0 flex justify-center items-center bg-black/85 cursor-no-drop"
+          className="p-5 h-screen w-screen absolute top-0 left-0 flex justify-center items-center bg-black/85 cursor-no-drop z-50"
         >
           <div
             onClick={(event) => event.stopPropagation()}
