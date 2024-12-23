@@ -42,3 +42,37 @@ input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield; /* Firefox */
 }
+
+/** SWIPE LIST OVERRIDES **/
+.swipeable-list-item__leading-actions,
+.swipeable-list-item__trailing-actions {
+  @apply text-white text-sm uppercase font-medium flex items-center;
+}
+.swipeable-list-item__leading-actions {
+  @apply bg-blue-700;
+}
+.swipeable-list-item__trailing-actions {
+  @apply bg-pink-700;
+}
+.swipeable-list .swipe-action {
+  @apply flex flex-col items-center;
+}
+
+.expense-detail-gradient {
+  background-image: linear-gradient(
+    to right,
+    rgb(29 78 216) 1%,
+    #fafafa 1%,
+    #fafafa 99%,
+    rgb(190 24 93) 99%
+  );
+}
+.dark .expense-detail-gradient {
+  background-image: linear-gradient(
+    to right,
+    rgb(29 78 216) 1%,
+    #09090b 1%,
+    #09090b 99%,
+    rgb(190 24 93) 99%
+  );
+}
