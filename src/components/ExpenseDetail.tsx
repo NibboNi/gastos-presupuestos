@@ -30,7 +30,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
       <LeadingActions>
         <SwipeAction
           onClick={() =>
-            dispatch({ type: "update-expense", payload: { id: expense.id } })
+            dispatch({ type: "get-expense-by-id", payload: { id: expense.id } })
           }
         >
           <Icon path={mdiReceiptTextEdit} size={1} />

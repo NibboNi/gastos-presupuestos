@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useBudget } from "../hooks/useBudget";
 import Select from "./Select";
 import CustomInput from "./CustomInput";
@@ -13,17 +13,37 @@ const initialExpense: DraftExpense = {
 
 export default function ExpenseForm() {
   const [expense, setExpense] = useState<DraftExpense>(initialExpense);
-  const { dispatch } = useBudget();
+  const { dispatch, state } = useBudget();
   const isValid = useMemo(() => {
-    return Object.values(expense).includes("") || expense.amount <= 0;
+    return (
+      Object.values(expense).includes("") ||
+      expense.amount <= 0 ||
+      isNaN(expense.amount)
+    );
   }, [expense]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch({ type: "add-expense", payload: { expense } });
+    // Agregar o actualizar el gasto...
+    if (state.editingId)
+      dispatch({
+        type: "update-expense",
+        payload: { expense: { id: state.editingId, ...expense } },
+      });
+    else dispatch({ type: "add-expense", payload: { expense } });
+
     setExpense(initialExpense);
   };
+
+  useEffect(() => {
+    if (state.editingId) {
+      const editingExpense = state.expenses.filter(
+        (currentExpense) => currentExpense.id === state.editingId
+      )[0];
+      setExpense(editingExpense);
+    }
+  }, [state.editingId, state.expenses]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
