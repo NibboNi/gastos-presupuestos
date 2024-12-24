@@ -26,6 +26,7 @@ export default function CustomInput({
     if (type === "number") {
       if (valueAsNumber <= 0)
         setErrorMessage("La cantidad debe ser mayor a cero.");
+      else if (value === "") setErrorMessage("Este campo es requerido.");
       else setErrorMessage("");
     } else {
       if (value === "") setErrorMessage("Este campo es requerido.");
