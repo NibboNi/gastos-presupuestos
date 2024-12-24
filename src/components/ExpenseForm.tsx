@@ -48,7 +48,7 @@ export default function ExpenseForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <legend className="py-1 text-2xl text-center capitalize font-extralight border-b border-b-zinc-200 transition-colors duration-300 ease-in-out dark:border-b-zinc-800">
-        Nuevo gasto
+        {state.editingId ? "Editando gasto" : "Nuevo gasto"}
       </legend>
       <CustomInput
         id="name"
@@ -80,7 +80,7 @@ export default function ExpenseForm() {
       />
       <input
         type="submit"
-        value="Registrar gasto"
+        value={state.editingId ? "Acutalizar gasto" : "Registrar gasto"}
         disabled={isValid}
         className="mt-5 mx-auto py-2 px-5 bg-zinc-950 text-white text-sm font-medium capitalize rounded cursor-pointer transition-colors duration-300 ease-in-out hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed dark:bg-zinc-100 dark:text-black dark:hover:bg-white"
       />
