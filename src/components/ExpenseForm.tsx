@@ -13,7 +13,8 @@ const initialExpense: DraftExpense = {
 
 export default function ExpenseForm() {
   const [expense, setExpense] = useState<DraftExpense>(initialExpense);
-  const { dispatch, state } = useBudget();
+  const { dispatch, state, remainingBudget } = useBudget();
+  const [previousAmount, setPreviousAmount] = useState(0);
   const isValid = useMemo(() => {
     return (
       Object.values(expense).includes("") ||
@@ -21,9 +22,25 @@ export default function ExpenseForm() {
       isNaN(expense.amount)
     );
   }, [expense]);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (state.editingId) {
+      const editingExpense = state.expenses.filter(
+        (currentExpense) => currentExpense.id === state.editingId
+      )[0];
+      setExpense(editingExpense);
+      setPreviousAmount(editingExpense.amount);
+    }
+  }, [state.editingId, state.expenses]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (expense.amount - previousAmount > remainingBudget) {
+      setErrorMessage("El gasto excede el presupuesto.");
+      return;
+    }
 
     // Agregar o actualizar el gasto...
     if (state.editingId)
@@ -35,15 +52,6 @@ export default function ExpenseForm() {
 
     setExpense(initialExpense);
   };
-
-  useEffect(() => {
-    if (state.editingId) {
-      const editingExpense = state.expenses.filter(
-        (currentExpense) => currentExpense.id === state.editingId
-      )[0];
-      setExpense(editingExpense);
-    }
-  }, [state.editingId, state.expenses]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
@@ -78,6 +86,13 @@ export default function ExpenseForm() {
         value={expense.date}
         setValue={setExpense}
       />
+      <p
+        className={`text-red-500 text-xs font-bold overflow-hidden transition-all duration-500 ease-in-out ${
+          errorMessage ? "max-h-screen" : "max-h-0"
+        }`}
+      >
+        {errorMessage}
+      </p>
       <input
         type="submit"
         value={state.editingId ? "Acutalizar gasto" : "Registrar gasto"}
