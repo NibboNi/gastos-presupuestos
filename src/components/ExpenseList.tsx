@@ -5,6 +5,11 @@ import ExpenseDetail from "./ExpenseDetail";
 export default function ExpenseList() {
   const { state } = useBudget();
   const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses]);
+  const filteredExpenses = state.currentCategory
+    ? state.expenses.filter(
+        (expense) => expense.category === state.currentCategory
+      )
+    : state.expenses;
 
   return (
     <div className="w-full">
@@ -14,7 +19,7 @@ export default function ExpenseList() {
             <h2 className="text-2xl font-extralight uppercase ">Mis gastos</h2>
           </header>
           <ul className="w-full">
-            {state.expenses.map((expense) => (
+            {filteredExpenses.map((expense) => (
               <li key={expense.id} className="pb-2.5 w-full last-of-type:pb-0">
                 <ExpenseDetail key={expense.id} expense={expense} />
               </li>

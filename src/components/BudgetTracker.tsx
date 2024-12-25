@@ -9,7 +9,7 @@ export default function BudgetTracker() {
 
   return (
     <div className="mx-auto p-5 max-w-7xl grid grid-cols-1 gap-5 md:grid-cols-2">
-      <div className="py-5 px-8 flex flex-col items-start bg-black text-white border border-transparent rounded-lg shadow-2xl transition-colors duration-300 ease-in-out dark:bg-zinc-950 dark:border-zinc-800 md:w-2/3 md:justify-self-end">
+      <div className="py-5 px-8 flex flex-col items-center bg-black text-white border border-transparent rounded-lg shadow-2xl transition-colors duration-300 ease-in-out dark:bg-zinc-950 dark:border-zinc-800 md:w-2/3 md:justify-self-end">
         <h2 className="text-xl font-medium">Presupuesto</h2>
         <p className="text-lg font-light">{formatCurrency(state.budget)}</p>
         <div
