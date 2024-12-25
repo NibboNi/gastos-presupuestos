@@ -76,3 +76,25 @@ input[type="number"] {
     rgb(190 24 93) 99%
   );
 }
+
+/* Expenses Progress Bar */
+.progress-bar::before,
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.progress-bar::before {
+  height: 95%;
+  width: 95%;
+  background-color: black;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dark .progress-bar::before {
+  background-color: #09090b;
+}
