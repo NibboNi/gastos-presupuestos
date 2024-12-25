@@ -6,18 +6,30 @@ import ExpenseForm from "./ExpenseForm";
 export default function ExpenseModal() {
   const { state, dispatch } = useBudget();
 
+  const handleOpenForm = () => {
+    const root = document.documentElement;
+    dispatch({ type: "show-modal" });
+    root.classList.add("no-scroll");
+  };
+
+  const handleCloseForm = () => {
+    const root = document.documentElement;
+    dispatch({ type: "hide-modal" });
+    root.classList.remove("no-scroll");
+  };
+
   return (
     <>
       <button
-        onClick={() => dispatch({ type: "show-modal" })}
+        onClick={handleOpenForm}
         className="p-2.5 self-center flex justify-center items-center bg-zinc-50 border border-zinc-200 rounded-xl shadow-xl transition-colors duration-300 ease-in-out hover:bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:hover:bg-black"
       >
         <Icon path={mdiWalletPlus} size={1} />
       </button>
       {state.modal && (
         <div
-          onClick={() => dispatch({ type: "hide-modal" })}
-          className="p-5 h-screen w-screen absolute top-0 left-0 flex justify-center items-center bg-black/85 cursor-no-drop z-50"
+          onClick={handleCloseForm}
+          className="p-5 h-screen w-screen fixed top-0 left-0 flex justify-center items-center bg-black/85 cursor-no-drop z-50"
         >
           <div
             onClick={(event) => event.stopPropagation()}
