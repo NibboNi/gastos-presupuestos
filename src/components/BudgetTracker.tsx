@@ -59,7 +59,9 @@ export default function BudgetTracker() {
           <div
             className={`w-48 h-48 flex items-center justify-start transition-transform duration-300 ease-in-out`}
             style={{
-              transform: `translateX(${position === 0 ? "0%" : "-100%"})`,
+              transform: `translateX(${
+                expensesMade ? "0%" : position === 0 ? "0%" : "-100%"
+              })`,
             }}
           >
             <div className="w-full h-full shrink-0 flex justify-center items-center">
