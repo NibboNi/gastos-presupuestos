@@ -36,6 +36,7 @@ export default function ExpenseForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const root = document.documentElement;
 
     if (expense.amount - previousAmount > remainingBudget) {
       setErrorMessage("El gasto excede el presupuesto.");
@@ -51,6 +52,7 @@ export default function ExpenseForm() {
     else dispatch({ type: "add-expense", payload: { expense } });
 
     setExpense(initialExpense);
+    root.classList.remove("no-scroll");
   };
 
   return (

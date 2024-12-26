@@ -25,14 +25,16 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     [expense]
   );
 
+  const handleLeadingAction = () => {
+    const root = document.documentElement;
+    root.classList.add("no-scroll");
+    dispatch({ type: "get-expense-by-id", payload: { id: expense.id } });
+  };
+
   const leadingActions = () => {
     return (
       <LeadingActions>
-        <SwipeAction
-          onClick={() =>
-            dispatch({ type: "get-expense-by-id", payload: { id: expense.id } })
-          }
-        >
+        <SwipeAction onClick={handleLeadingAction}>
           <Icon path={mdiReceiptTextEdit} size={1} />
           <p>Actualizar</p>
         </SwipeAction>
