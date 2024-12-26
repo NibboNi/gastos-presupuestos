@@ -23,6 +23,7 @@ export default function BudgetTracker() {
   }));
 
   const expensesMade = piePieces.every((piece) => piece.value === 0);
+  console.log(expensesMade);
 
   const handleTouchStart = (event: React.TouchEvent) => {
     const touch = event.changedTouches[0];
@@ -54,7 +55,7 @@ export default function BudgetTracker() {
           className="flex flex-col items-center justify-center bg-gradient-to-r from-black via-transparent to-black overflow-hidden dark:from-zinc-950 dark:to-zinc-950"
         >
           <div
-            className={`w-48 h-48 flex items-center justify-start translate-x-[-${position}00%] transition-transform duration-300 ease-in-out`}
+            className={`w-48 h-48 flex items-center justify-start -translate-x-[${position}00%] transition-transform duration-300 ease-in-out`}
           >
             <div className="w-full h-full shrink-0 flex justify-center items-center">
               <div
