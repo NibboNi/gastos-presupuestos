@@ -3,7 +3,7 @@ import { useBudget } from "../hooks/useBudget";
 import { formatCurrency } from "../helpers";
 import AmoutDisplay from "./AmoutDisplay";
 import { categories } from "../data/categories";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 export default function BudgetTracker() {
   const [startX, setStartX] = useState(0);
@@ -22,8 +22,10 @@ export default function BudgetTracker() {
     color: category.color,
   }));
 
-  const expensesMade = piePieces.every((piece) => piece.value === 0);
-  console.log(expensesMade);
+  const expensesMade = useMemo(
+    () => piePieces.every((piece) => piece.value === 0),
+    [piePieces]
+  );
 
   const handleTouchStart = (event: React.TouchEvent) => {
     const touch = event.changedTouches[0];
@@ -55,7 +57,10 @@ export default function BudgetTracker() {
           className="flex flex-col items-center justify-center bg-gradient-to-r from-black via-transparent to-black overflow-hidden dark:from-zinc-950 dark:to-zinc-950"
         >
           <div
-            className={`w-48 h-48 flex items-center justify-start -translate-x-[${position}00%] transition-transform duration-300 ease-in-out`}
+            className={`w-48 h-48 flex items-center justify-start transition-transform duration-300 ease-in-out`}
+            style={{
+              transform: `translateX(${position === 0 ? "0%" : "-100%"})`,
+            }}
           >
             <div className="w-full h-full shrink-0 flex justify-center items-center">
               <div
